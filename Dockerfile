@@ -1,6 +1,5 @@
 FROM python:3.10-slim
 
-# نصب Tesseract-OCR و dependencies
 RUN apt-get update && apt-get install -y \
     tesseract-ocr \
     tesseract-ocr-fas \
@@ -14,4 +13,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["gunicorn", "ocr_server:app", "-b", "0.0.0.0:$PORT"]
+# استفاده از متغیر محیطی PORT
+CMD gunicorn ocr_server:app -b 0.0.0.0:$PORT
